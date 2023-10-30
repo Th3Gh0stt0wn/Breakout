@@ -1,0 +1,315 @@
+import pygame
+import random
+pygame.init()
+
+screen = pygame.display.set_mode((700,500))
+pygame.display.set_caption("breakout")
+
+doExit = False
+
+clock = pygame.time.Clock()
+
+class brick:
+    def __init__(self, xpos, ypos):
+        self.xpos = xpos
+        self.ypos = ypos
+        self.color = (random.randrange(100, 250),random.randrange(100, 250),random.randrange(100, 250))
+        self.isDead = False
+    def draw(self):
+        pygame.draw.rect(screen, self.color, (self.xpos, self.ypos, 100, 50))
+    def collide(self, x, y):
+        if x> self.xpos and x<self.xpos+100 and y > self.ypos and y < self.ypos+50 and self.isDead == False :
+            print("hit")
+            return True
+        
+life = 3
+score = 0
+
+p1x = 300
+p1y = 470
+
+#ball variables
+bx = 250 #xposition
+by = 250 #yposition
+bVx = 5 #x velocity 
+bVy = 5 #y velocity 
+
+#brick locations above game loop
+b1 = brick(30, 50)
+b2 = brick(140, 50)
+b3 = brick(250, 50)
+b4 = brick(360, 50)
+b5 = brick(470, 50)
+b6 = brick(580, 50)
+b7 = brick(30, 110)
+b8 = brick(140, 110)
+b9 = brick(250, 110)
+b10 = brick(360, 110)
+b11 = brick(470, 110)
+b12 = brick(580, 110)
+b13 = brick(30, 170)
+b14 = brick(140, 170)
+b15 = brick(250, 170)
+b16 = brick(360, 170)
+b17 = brick(470, 170)
+b18 = brick(580, 170) 
+collide = False
+
+
+
+
+while not doExit: #Game Loop---------------------------------
+
+    clock.tick(60) 
+
+    for event in pygame.event.get(): 
+        if event.type == pygame.QUIT:
+            doExit = True 
+            
+    #game logic will go here
+        keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        p1x-=5
+    if keys[pygame.K_RIGHT]:
+        p1x+=5
+            
+    #ball-paddle reflection
+    if bx+10 > p1x and bx-10<p1x+100 and by+10 > p1y:
+        bVy *= -1
+            
+    #ball movement
+    bx += bVx
+    by += bVy
+        
+    #reflect the ball off side walls of screen
+    if bx < 0 or bx + 20 > 700:
+        bVx *= -1
+    if by > 500 - 20 or by < 0:
+       bVy *= -1
+       if by > 500 - 20:
+           print("bounce against bottom")
+           life -= 1
+        
+    #end of game
+    if life <= 0:
+        doExit = True
+        
+    if score >=180:
+        doExit = True
+    
+    #collide 1
+    if b1.collide(bx, by) == True:
+        bVy *= -1
+        b1.isDead = True
+        score+=10
+        
+    if b1.isDead == True:
+        b1.collide(bx, by) == False
+        
+    #collide 2
+    if b2.collide(bx, by) == True:
+        bVy *= -1
+        b2.isDead = True
+        score+=10
+    
+    if b2.isDead == True:
+        b2.collide(bx, by) == False
+    
+    #collide 3
+    if b3.collide(bx, by) == True:
+        bVy *= -1
+        b3.isDead = True
+        score+=10
+        
+    if b3.isDead == True:
+        b3.collide(bx, by) == False
+    
+    #collide 4
+    if b4.collide(bx, by) == True:
+        bVy *= -1
+        b4.isDead = True
+        score+=10
+        
+    if b4.isDead == True:
+        b4.collide(bx, by) == False
+    
+    #collide 5
+    if b5.collide(bx, by) == True:
+        bVy *= -1
+        b5.isDead = True
+        score+=10
+        
+    if b5.isDead == True:
+        b5.collide(bx, by) == False
+    
+    #collide 6
+    if b6.collide(bx, by) == True:
+        bVy *= -1
+        b6.isDead = True
+        score+=10
+        
+    if b6.isDead == True:
+        b6.collide(bx, by) == False
+    
+    #collide 7
+    if b7.collide(bx, by) == True:
+        bVy *= -1
+        b7.isDead = True
+        score+=10
+        
+    if b7.isDead == True:
+        b7.collide(bx, by) == False
+    
+    #collide 8
+    if b8.collide(bx, by) == True:
+        bVy *= -1
+        b8.isDead = True
+        score+=10
+        
+    if b8.isDead == True:
+        b8.collide(bx, by) == False
+        
+    #collide 9
+    if b9.collide(bx, by) == True:
+        bVy *= -1
+        b9.isDead = True
+        score+=10
+        
+    if b9.isDead == True:
+        b9.collide(bx, by) == False
+    
+    #collide 10
+    if b10.collide(bx, by) == True:
+        bVy *= -1
+        b10.isDead = True
+        score+=10
+        
+    if b10.isDead == True:
+        b10.collide(bx, by) == False
+    
+    #collide 11
+    if b11.collide(bx, by) == True:
+        bVy *= -1
+        b11.isDead = True
+        score+=10
+        
+    if b11.isDead == True:
+        b11.collide(bx, by) == False
+    
+    #collide 12
+    if b12.collide(bx, by) == True:
+        bVy *= -1
+        b12.isDead = True
+        score+=10
+        
+    if b12.isDead == True:
+        b12.collide(bx, by) == False
+    
+    #collide 13    
+    if b13.collide(bx, by) == True:
+        bVy *= -1
+        b13.isDead = True
+        score+=10
+        
+    if b13.isDead == True:
+        b13.collide(bx, by) == False
+    
+    #collide 14    
+    if b14.collide(bx, by) == True:
+        bVy *= -1
+        b14.isDead = True
+        score+=10
+        
+    if b14.isDead == True:
+        b14.collide(bx, by) == False
+    
+    #collide 15
+    if b15.collide(bx, by) == True:
+        bVy *= -1
+        b15.isDead = True
+        score+=10
+        
+    if b15.isDead == True:
+        b15.collide(bx, by) == False
+        
+    #collide 16
+    if b16.collide(bx, by) == True:
+        bVy *= -1
+        b16.isDead = True
+        score+=10
+        
+    if b16.isDead == True:
+        b16.collide(bx, by) == False
+        
+    #collide 17
+    if b17.collide(bx, by) == True:
+        bVy *= -1
+        b17.isDead = True
+        score+=10
+        
+    if b17.isDead == True:
+        b17.collide(bx, by) == False
+        
+    #collide 18
+    if b18.collide(bx, by) == True:
+        bVy *= -1
+        b18.isDead = True
+        score+=10
+        
+    if b18.isDead == True:
+        b18.collide(bx, by) == False
+    
+
+#render section 
+    screen.fill((62, 42, 69))
+    
+    font = pygame.font.Font(None, 74)
+    pygame.draw.rect(screen, (188, 157, 199), (p1x, p1y, 100, 20), 10)
+    pygame.draw.circle(screen, (255, 255, 255), (bx, by,), 10)
+    text = font.render(str(life), 1, (188, 157, 199))
+    screen.blit(text, (0,6))
+    text = font.render(str(score), 1, (188, 157, 199))
+    screen.blit(text, (620,6))
+    
+    if b1.isDead == False:
+        b1.draw()
+    if b2.isDead == False:
+        b2.draw()
+    if b3.isDead == False:
+        b3.draw()
+    if b4.isDead == False:
+        b4.draw()
+    if b5.isDead == False:
+        b5.draw()
+    if b6.isDead == False:
+        b6.draw()
+    if b7.isDead == False:
+        b7.draw()
+    if b8.isDead == False:
+        b8.draw()
+    if b9.isDead == False:
+        b9.draw()
+    if b10.isDead == False:
+        b10.draw()
+    if b11.isDead == False:
+        b11.draw()
+    if b12.isDead == False:
+        b12.draw()
+    if b13.isDead == False:
+        b13.draw()
+    if b14.isDead == False:
+        b14.draw()
+    if b15.isDead == False:
+        b15.draw()
+    if b16.isDead == False:
+        b16.draw()
+    if b17.isDead == False:
+        b17.draw()
+    if b18.isDead == False:
+        b18.draw()
+        
+    pygame.display.flip()
+    
+#game loop end
+    
+pygame.quit()
